@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title></title>
+    <url>/2021/09/26/GIF89a/</url>
+    <content><![CDATA[<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">GIF89a</span><br><span class="line">&lt;script language=<span class="string">&quot;php&quot;</span>&gt;<span class="keyword">eval</span>(<span class="variable">$_GET</span>[shell])&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>通常，在嵌入了php脚本的html中，使用 phtml作为后缀名；完全是php写的，则使用php作为后缀名。这两种文件，web服务器都会用php解释器进行解析。</p>
+<p>当不能使用php代码直接注入时可以改为phtml格式加入GIF89a(图片头文件欺骗)，后台认为是图片,上传后再执行木马。</p>
+<p>先将文件改为.gif欺骗网址第一层，抓包将filename改为以.phtml结尾并以这种方式进行，GIF89a则负责骗过第二层。</p>
+<p><img src="https://img-blog.csdnimg.cn/97cb183433d94d4b9f8dd45ee661b862.png" alt="请添加图片描述"></p>
+<p>通过蚁剑一般连接的是：url/upload/文件名<br>此题为：<img src="https://img-blog.csdnimg.cn/d84d1c9b84874534a08d06b09535dcdb.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA55-z5pif7oCx,size_20,color_FFFFFF,t_70,g_se,x_16" alt="请添加图片描述"><br>蚁剑连接即可</p>
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2021/09/26/mysql%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h1 id="数据库操作："><a href="#数据库操作：" class="headerlink" title="数据库操作："></a>数据库操作：</h1><hr>
+<h2 id="链接数据库"><a href="#链接数据库" class="headerlink" title="链接数据库"></a>链接数据库</h2><ul>
+<li>cd 进入bin目录 输入 mysql -u root -p 然后输入密码<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2></li>
+<li>show databases; 显示数据库</li>
+<li>use 库名; 选择数据库</li>
+<li>DROP DATABASE 库名; 删除库</li>
+<li>creat database 库名; 创建库<h1 id="表操作："><a href="#表操作：" class="headerlink" title="表操作："></a>表操作：</h1></li>
+</ul>
+<hr>
+<ul>
+<li>show tables; 显示表</li>
+<li>drop table 表名; 删除表</li>
+<li>creat table 表名(<br>列名 类型 是否可以为空，<br>列名 类型 是否可以为空，<br>)ENGINE=InnoDB DEFAULT CHARSET=utf8;<br><img src="https://img-blog.csdnimg.cn/07ef5823c84f49279abd8ab0f5a12656.png" alt="请添加图片描述"></li>
+</ul>
+<h1 id="字段操作："><a href="#字段操作：" class="headerlink" title="字段操作："></a>字段操作：</h1><hr>
+<ul>
+<li><p>alter table 表名<br>  add column `字段名` &lt;数据类型&gt; comment `备注`; 添加字段<br>  <img src="https://img-blog.csdnimg.cn/0d60f2fa512b4938be65506c52bd9a9d.png" alt="请添加图片描述"></p>
+</li>
+<li><p>alter table 表名<br>change column `老字段名` `新字段名` &lt;数据类型&gt; comment `备注`; 修改字段</p>
+</li>
+<li><p>alter table 表名</p>
+</li>
+<li><p>drop column 表名; 删除字段</p>
+</li>
+</ul>
+<h1 id="记录操作："><a href="#记录操作：" class="headerlink" title="记录操作："></a>记录操作：</h1><hr>
+<h2 id="增："><a href="#增：" class="headerlink" title="增："></a>增：</h2><h3 id="一次插入一条"><a href="#一次插入一条" class="headerlink" title="一次插入一条"></a>一次插入一条</h3><ul>
+<li>insert into `表名`  set  `字段名1` = ‘value1’ ,`字段名2` = ‘value2’<h3 id="一次插入多条"><a href="#一次插入多条" class="headerlink" title="一次插入多条"></a>一次插入多条</h3></li>
+<li>insert into `表名`  ( `字段名1`, `字段名2`) values ( value1.1,value1.2 ),(value2.1,value2.2 ) <h3 id="根据索引值进行判断，若存在，先删除在插入"><a href="#根据索引值进行判断，若存在，先删除在插入" class="headerlink" title="根据索引值进行判断，若存在，先删除在插入"></a>根据索引值进行判断，若存在，先删除在插入</h3></li>
+<li>replace into `表名`  set  `字段名1` = ‘value1’ ,`字段名2` = ‘value2’<h2 id="删："><a href="#删：" class="headerlink" title="删："></a>删：</h2><h3 id="删除一条或多条"><a href="#删除一条或多条" class="headerlink" title="删除一条或多条"></a>删除一条或多条</h3></li>
+<li>delete from 表名 where id = （=也可以换成&gt;,&lt;）<br>(id号还是会继续累加)<h3 id="初始化表"><a href="#初始化表" class="headerlink" title="初始化表"></a>初始化表</h3></li>
+<li>truncate 表名<br>(id号从1开始)<h2 id="改"><a href="#改" class="headerlink" title="改:"></a>改:</h2></li>
+<li>update 表名 set  字段名1 = ‘value1’ ,字段名2 = ‘value2’ where id =<h2 id="查："><a href="#查：" class="headerlink" title="查："></a>查：</h2><h3 id="单表查询"><a href="#单表查询" class="headerlink" title="单表查询"></a>单表查询</h3><h4 id="查询表中某些字段"><a href="#查询表中某些字段" class="headerlink" title="查询表中某些字段"></a>查询表中某些字段</h4></li>
+<li>select 字段1,字段2 from 表 <h4 id="以表中某些字段为条件查询"><a href="#以表中某些字段为条件查询" class="headerlink" title="以表中某些字段为条件查询"></a>以表中某些字段为条件查询</h4></li>
+<li>select * from 表 where 字段1=’value1’ and 字段2=’value2’<br>若查看除某些字段以外的其他：</li>
+<li>select * from 表 where 字段 not in (‘value1’,’value2’)</li>
+<li>select * from 表 where 字段 &lt;&gt; ‘value’<h4 id="按照id号查询"><a href="#按照id号查询" class="headerlink" title="按照id号查询"></a>按照id号查询</h4></li>
+</ul>
+<p>1.select * from 表 where id =1or id=2 or id=3<br>2.select * from 表 where id in(1,2,3)<br>3.select * from 表 where id in(‘1’,’2’,’3’)<br>若查看除某些id号以外的其他：</p>
+<ul>
+<li>select * from 表 where id not in(‘1’,’2’,’3’)</li>
+</ul>
+<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><ul>
+<li><p>select * from 表  order by 字段 desc(降) asc(胜) limit 0,3<br>(limit 0,3 从第一个开始选 选三个)</p>
+<h3 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h3><h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h4><blockquote>
+<p>场景：有两个表 员工信息employee_info ，员工工资employ_pay<br>我们需要根据一个人的姓名对应的id，查询对应的工资以及显示对应的姓名</p>
+</blockquote>
+</li>
+<li><p>select pay,(select name from employ_info where id=3) as username from employ_pay where nameid=3</p>
+<h4 id="关联查询"><a href="#关联查询" class="headerlink" title="关联查询"></a>关联查询</h4></li>
+<li><p>select b.name,a.pay from employ_pay a,employee_info b where a.nameid=b.id and b.id=3</p>
+<h4 id="左-右链接查询"><a href="#左-右链接查询" class="headerlink" title="左/右链接查询"></a>左/右链接查询</h4></li>
+<li><p>左链接查询<br>(显示左边表所有记录，以及右边表满足条件的记录)<br>select a.*,b.pay from employee_info a left join employee_pay b on a.id=b.nameid</p>
+</li>
+<li><p>右链接查询<br>(显示右边表所有记录，以及左边表满足条件的记录)<br>select a.*,b.pay from employee_pay a left join employee_info b on a.id=b.nameid</p>
+<h3 id="联合查询"><a href="#联合查询" class="headerlink" title="联合查询"></a>联合查询</h3></li>
+<li><p>查询语句1<br>union<br>查询语句2</p>
+</li>
+<li><p>条件：<br>1、要求多条查询 语句的查询列数是一致的<br>2、要求多条查询语句的查询的每一列的类型和最好一致<br>3、union关键字默认去重，如果使用union all 可以包含重复项</p>
+</li>
+</ul>
+]]></content>
+  </entry>
+</search>
