@@ -77,4 +77,13 @@
 </ul>
 ]]></content>
   </entry>
+  <entry>
+    <title></title>
+    <url>/2021/09/26/sqllab/</url>
+    <content><![CDATA[<p>每个库里都有information_schema表</p>
+<p>而每个information_schema表里都有information_schema.tables字段</p>
+<p>table_schema  库名</p>
+<p>schema_name 表名</p>
+]]></content>
+  </entry>
 </search>
