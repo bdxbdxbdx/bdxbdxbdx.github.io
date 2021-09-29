@@ -13,6 +13,15 @@
   </entry>
   <entry>
     <title></title>
+    <url>/2021/09/26/sqllab/</url>
+    <content><![CDATA[<p>每个库里都有information_schema表</p>
+<p>而每个information_schema表里都有information_schema.tables字段</p>
+<p>table_schema  库名</p>
+<p>schema_name 表名</p>
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
     <url>/2021/09/26/mysql%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<h1 id="数据库操作："><a href="#数据库操作：" class="headerlink" title="数据库操作："></a>数据库操作：</h1><hr>
 <h2 id="链接数据库"><a href="#链接数据库" class="headerlink" title="链接数据库"></a>链接数据库</h2><ul>
@@ -75,15 +84,6 @@
 <li><p>条件：<br>1、要求多条查询 语句的查询列数是一致的<br>2、要求多条查询语句的查询的每一列的类型和最好一致<br>3、union关键字默认去重，如果使用union all 可以包含重复项</p>
 </li>
 </ul>
-]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2021/09/26/sqllab/</url>
-    <content><![CDATA[<p>每个库里都有information_schema表</p>
-<p>而每个information_schema表里都有information_schema.tables字段</p>
-<p>table_schema  库名</p>
-<p>schema_name 表名</p>
 ]]></content>
   </entry>
 </search>
