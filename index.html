@@ -449,11 +449,15 @@
     
 
     
-    <p>每个库里都有information_schema表</p>
+    <h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><p>每个库里都有information_schema表</p>
 <p>而每个information_schema表里都有information_schema.tables字段</p>
 <p>table_schema  库名</p>
 <p>schema_name 表名</p>
-<h1 id="做题步骤"><a href="#做题步骤" class="headerlink" title="做题步骤"></a>做题步骤</h1><ul>
+<h3 id="简单的了解万能密码"><a href="#简单的了解万能密码" class="headerlink" title="简单的了解万能密码"></a>简单的了解万能密码</h3><h3 id="admin"><a href="#admin" class="headerlink" title="admin"></a>admin</h3><h3 id="‘or’1‘-’1"><a href="#‘or’1‘-’1" class="headerlink" title="‘or’1‘=’1"></a>‘or’1‘=’1</h3><ul>
+<li>原理：SQL语句sql=”select * from user where username=’”&amp;username&amp;”‘and password=’”&amp; password&amp;’”,当我们的密码填写’or’1’=’1提交的时候，此时语句中的password等于’or’1’=’1，那么，这条SQL语句就变成了：sql=”select * from user where username=’”&amp;username&amp;”‘and password= ‘’or’1’=’1’,然而，1=1是恒等条件，自然也就通过了程序的验证。</li>
+<li>方法：首先我们需要在密码的最前面有一个单引号，来闭合SQL语句中的单引号，然后构造一个or，也就是或者，后面加一个恒等条件即可最简单的就是1=1，同样为了使SQL语句不出错，是来闭合程序中的SQL语句的后面的单引号的，如果我们在后面再加上一个单引号的话就会出错。</li>
+</ul>
+<h2 id="做题步骤"><a href="#做题步骤" class="headerlink" title="做题步骤"></a>做题步骤</h2><ul>
 <li><p>1.输入’1等字符看报错判断闭合方式</p>
 </li>
 <li><p>2.利用order by 判断列数</p>
