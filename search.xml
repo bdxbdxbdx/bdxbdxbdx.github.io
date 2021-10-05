@@ -20,10 +20,10 @@
 <li>show databases; 显示数据库</li>
 <li>use 库名; 选择数据库</li>
 <li>DROP DATABASE 库名; 删除库</li>
-<li>creat database 库名; 创建库<h1 id="表操作："><a href="#表操作：" class="headerlink" title="表操作："></a>表操作：</h1></li>
+<li>creat database 库名; 创建库</li>
 </ul>
 <hr>
-<ul>
+<h1 id="表操作"><a href="#表操作" class="headerlink" title="表操作"></a>表操作</h1><ul>
 <li>show tables; 显示表</li>
 <li>drop table 表名; 删除表</li>
 <li>creat table 表名(<br>列名 类型 是否可以为空，<br>列名 类型 是否可以为空，<br>)ENGINE=InnoDB DEFAULT CHARSET=utf8;<br><img src="https://img-blog.csdnimg.cn/07ef5823c84f49279abd8ab0f5a12656.png" alt="请添加图片描述"></li>
