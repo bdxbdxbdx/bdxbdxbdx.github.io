@@ -115,4 +115,9 @@
 <p>from users –+     (或者：?id=-1‘ union select 1,username,password from users where id=1 –+)</p>
 ]]></content>
   </entry>
+  <entry>
+    <title></title>
+    <url>/2021/10/05/%E7%9B%B2%E6%B3%A8/</url>
+    <content><![CDATA[<h1 id="布尔盲注"><a href="#布尔盲注" class="headerlink" title="布尔盲注"></a>布尔盲注</h1>]]></content>
+  </entry>
 </search>
