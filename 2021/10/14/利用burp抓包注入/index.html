@@ -207,17 +207,20 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="布尔盲注">
+  <meta name="description" content="基于burp抓包 常见的HTTP注入点产生位置为【Referer】、【X-Forwarded-For】、【Cookie】、【X-Real-IP】、【Accept-Language】、【Authorization】  用户代理头部注入 sqli_lab 18 源代码：    $insert&#x3D;”INSERT INTO security.uagents (uagent, ip_address, user">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/2021/10/05/%E7%9B%B2%E6%B3%A8/index.html">
+<meta property="og:url" content="http://example.com/2021/10/14/%E5%88%A9%E7%94%A8burp%E6%8A%93%E5%8C%85%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="布尔盲注">
+<meta property="og:description" content="基于burp抓包 常见的HTTP注入点产生位置为【Referer】、【X-Forwarded-For】、【Cookie】、【X-Real-IP】、【Accept-Language】、【Authorization】  用户代理头部注入 sqli_lab 18 源代码：    $insert&#x3D;”INSERT INTO security.uagents (uagent, ip_address, user">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-10-05T07:43:40.625Z">
-<meta property="article:modified_time" content="2021-10-05T15:42:26.294Z">
+<meta property="og:image" content="c:/Users/dell/Pictures/各种截图/代理头部2.png">
+<meta property="og:image" content="c:/Users/dell/Pictures/各种截图/用户代理头部.png">
+<meta property="article:published_time" content="2021-10-14T04:24:33.548Z">
+<meta property="article:modified_time" content="2021-10-15T02:00:26.547Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/dell/Pictures/各种截图/代理头部2.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -428,7 +431,7 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-盲注" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-利用burp抓包注入" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
   <div class="article-entry" itemprop="articleBody">
@@ -439,7 +442,61 @@
     
 
     
-    <h1 id="布尔盲注"><a href="#布尔盲注" class="headerlink" title="布尔盲注"></a>布尔盲注</h1>
+    <h1 id="基于burp抓包"><a href="#基于burp抓包" class="headerlink" title="基于burp抓包"></a>基于burp抓包</h1><blockquote>
+<p>常见的HTTP注入点产生位置为【Referer】、【X-Forwarded-For】、【Cookie】、【X-Real-IP】、【Accept-Language】、【Authorization】</p>
+</blockquote>
+<h2 id="用户代理头部注入"><a href="#用户代理头部注入" class="headerlink" title="用户代理头部注入"></a>用户代理头部注入</h2><ul>
+<li>sqli_lab 18 源代码：</li>
+</ul>
+<p><img src="C:\Users\dell\Pictures\各种截图\代理头部2.png" alt="代理头部2"></p>
+<ul>
+<li>$insert=”INSERT INTO <code>security</code>.<code>uagents</code> (<code>uagent</code>, <code>ip_address</code>, <code>username</code>) VALUES (‘$uagent‘, ‘$IP‘, $uname)”;将useragent和ip插入到数据库中,首先这里要输入正确的账号和密码才能绕过账号密码判断，才能进入处理uagent部分,账号和密码都是admin。</li>
+<li>print_r(mysql_error())则表示使用报错注入。</li>
+</ul>
+<p><img src="C:\Users\dell\Pictures\各种截图\用户代理头部.png"></p>
+<ul>
+<li>源码使用HTTP_USER_AGENT只获取了HTTP请求头的一个部分：User-Agent.而IP使用了REMOTE_ADDR，它能被代理服务器或路由器修改，但并非修改XFF头就可修改。</li>
+</ul>
+<p>现在抓包改参数：</p>
+<p>![屏幕截图 2021-10-14 124401](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-14 124401.png)</p>
+<ul>
+<li>没有报错，同时把User_Agent的值传出来，但如果输入User_Agent值有错或者没有按照要求则会显示报错：</li>
+</ul>
+<p>![屏幕截图 2021-10-14 124609](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-14 124609.png)</p>
+<ul>
+<li>使用报错注入：</li>
+</ul>
+<p><code> 1&#39; and extractvalue(1,concat(0x7e,database())) and &#39;1#</code></p>
+<p>![屏幕截图 2021-10-14 125322](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-14 125322.png)</p>
+<ul>
+<li>现在显示了库名，接下来爆表名和字段就行了</li>
+</ul>
+<p><code> 1&#39; and extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=&#39;security&#39;))) and &#39;1#</code></p>
+<h2 id="Referer注入"><a href="#Referer注入" class="headerlink" title="Referer注入"></a>Referer注入</h2><ul>
+<li>sqli_lab 19 源代码：</li>
+</ul>
+<p>![屏幕截图 2021-10-15 075859](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-15 075859.png)</p>
+<p>![屏幕截图 2021-10-06 190904](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-06 190904.png)</p>
+<ul>
+<li>显示从Referer入手，则输入代码：</li>
+</ul>
+<p><code>1&#39; and extractvalue(1,concat(0x7e,database())),&#39;1#</code></p>
+<h2 id="Cookie注入"><a href="#Cookie注入" class="headerlink" title="Cookie注入"></a>Cookie注入</h2><ul>
+<li>sqli_lab 20 源代码：</li>
+</ul>
+<p>![屏幕截图 2021-10-15 090712](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-15 090712.png)</p>
+<ul>
+<li>如果输入uname和passwd则setcookie</li>
+</ul>
+<p>![屏幕截图 2021-10-15 090922](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-15 090922.png)</p>
+<ul>
+<li><p>如果没有点击submit提交则查询cookie，通过uname传参</p>
+</li>
+<li><p>传入uname和passwd后抓包，这时再删去uname和passwd，在cookie插入<code>uname= 1&#39;and extractvalue(1,concat(0x7e,database()))#</code></p>
+</li>
+</ul>
+<p>![屏幕截图 2021-10-15 091219](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-15 091219.png)</p>
+
     
     
     <div class="page-reward">
@@ -484,7 +541,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://example.com/2021/10/05/盲注/" title="" target="_blank">http://example.com/2021/10/05/盲注/</a>
+          <a href="http://example.com/2021/10/14/利用burp抓包注入/" title="" target="_blank">http://example.com/2021/10/14/利用burp抓包注入/</a>
         </li>
         
         <li>
@@ -551,7 +608,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/10/05/%E7%9B%B2%E6%B3%A8/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/10/14/%E5%88%A9%E7%94%A8burp%E6%8A%93%E5%8C%85%E6%B3%A8%E5%85%A5/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -567,7 +624,7 @@
 <nav id="article-nav">
   
   
-    <a href="/2021/10/02/sqllab/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/10/02/mysql%E8%AE%B0%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title"></div>
       <i class="icon-circle-right"></i>
     </a>
@@ -595,7 +652,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8"><span class="toc-number">1.</span> <span class="toc-text">布尔盲注</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Eburp%E6%8A%93%E5%8C%85"><span class="toc-number">1.</span> <span class="toc-text">基于burp抓包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E4%BB%A3%E7%90%86%E5%A4%B4%E9%83%A8%E6%B3%A8%E5%85%A5"><span class="toc-number">1.1.</span> <span class="toc-text">用户代理头部注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Referer%E6%B3%A8%E5%85%A5"><span class="toc-number">1.2.</span> <span class="toc-text">Referer注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cookie%E6%B3%A8%E5%85%A5"><span class="toc-number">1.3.</span> <span class="toc-text">Cookie注入</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -621,7 +678,7 @@
   <script>
   <!-- id: "" -->
   var giteement = new Giteement({
-    id: '20211005154340',
+    id: '20211014122433',
     owner: 'nate-lin',
     repo: 'nate-lin-demo',
     backcall_uri: 'https://nate-lin.gitee.io',

