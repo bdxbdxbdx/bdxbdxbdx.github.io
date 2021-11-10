@@ -214,13 +214,22 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="基于burp抓包 常见的HTTP注入点产生位置为【Referer】、【X-Forwarded-For】、【Cookie】、【X-Real-IP】、【Accept-Language】、【Authorization】  用户代理头部注入 sqli_lab 18 源代码：    $insert&#x3D;”INSERT INTO security.uagents (uagent, ip_address, user">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:/Users/dell/Pictures/各种截图/代理头部2.png">
-<meta property="og:image" content="c:/Users/dell/Pictures/各种截图/用户代理头部.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/10/PXOEW7npUCmgwla.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/10/HsryI6ef4Z7UcDb.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/10/OmvVXJCbeZl6ETN.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/10/di9SRyFcWAzhaKm.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/10/kM8AqwSEoC132lP.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/10/r2sP8tBkQbi47XM.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/10/PBvkj87RFrxqGpf.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/10/nymKLT6rAto3I17.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/10/Pu13r9cIYnN5EbD.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/10/QT9FsgKNrnMRGcI.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/10/tgu8WVqijzcrn7F.png">
 <meta property="article:published_time" content="2021-10-14T04:24:33.548Z">
-<meta property="article:modified_time" content="2021-10-17T13:26:55.668Z">
+<meta property="article:modified_time" content="2021-11-10T12:11:31.001Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/dell/Pictures/各种截图/代理头部2.png">
+<meta name="twitter:image" content="https://i.loli.net/2021/11/10/PXOEW7npUCmgwla.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -448,26 +457,26 @@
 <h2 id="用户代理头部注入"><a href="#用户代理头部注入" class="headerlink" title="用户代理头部注入"></a>用户代理头部注入</h2><ul>
 <li>sqli_lab 18 源代码：</li>
 </ul>
-<p><img src="C:\Users\dell\Pictures\各种截图\代理头部2.png" alt="代理头部2"></p>
+<p><img src="https://i.loli.net/2021/11/10/PXOEW7npUCmgwla.png" alt="代理头部2"></p>
 <ul>
 <li>$insert=”INSERT INTO <code>security</code>.<code>uagents</code> (<code>uagent</code>, <code>ip_address</code>, <code>username</code>) VALUES (‘$uagent‘, ‘$IP‘, $uname)”;将useragent和ip插入到数据库中,首先这里要输入正确的账号和密码才能绕过账号密码判断，才能进入处理uagent部分,账号和密码都是admin。</li>
 <li>print_r(mysql_error())则表示使用报错注入。</li>
 </ul>
-<p><img src="C:\Users\dell\Pictures\各种截图\用户代理头部.png"></p>
+<p><img src="https://i.loli.net/2021/11/10/HsryI6ef4Z7UcDb.png"></p>
 <ul>
 <li>源码使用HTTP_USER_AGENT只获取了HTTP请求头的一个部分：User-Agent.而IP使用了REMOTE_ADDR，它能被代理服务器或路由器修改，但并非修改XFF头就可修改。</li>
 </ul>
 <p>现在抓包改参数：</p>
-<p>![屏幕截图 2021-10-14 124401](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-14 124401.png)</p>
+<p><img src="https://i.loli.net/2021/11/10/OmvVXJCbeZl6ETN.png" alt="屏幕截图 2021-10-14 124401"></p>
 <ul>
 <li>没有报错，同时把User_Agent的值传出来，但如果输入User_Agent值有错或者没有按照要求则会显示报错：</li>
 </ul>
-<p>![屏幕截图 2021-10-14 124609](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-14 124609.png)</p>
+<p><img src="https://i.loli.net/2021/11/10/di9SRyFcWAzhaKm.png" alt="屏幕截图 2021-10-14 124609"></p>
 <ul>
 <li>使用报错注入：</li>
 </ul>
 <p><code> 1&#39; and extractvalue(1,concat(0x7e,database())) and &#39;1#</code></p>
-<p>![屏幕截图 2021-10-14 125322](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-14 125322.png)</p>
+<p><img src="https://i.loli.net/2021/11/10/kM8AqwSEoC132lP.png" alt="屏幕截图 2021-10-14 125322"></p>
 <ul>
 <li>现在显示了库名，接下来爆表名和字段就行了</li>
 </ul>
@@ -475,8 +484,8 @@
 <h2 id="Referer注入"><a href="#Referer注入" class="headerlink" title="Referer注入"></a>Referer注入</h2><ul>
 <li>sqli_lab 19 源代码：</li>
 </ul>
-<p>![屏幕截图 2021-10-15 075859](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-15 075859.png)</p>
-<p>![屏幕截图 2021-10-06 190904](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-06 190904.png)</p>
+<p><img src="https://i.loli.net/2021/11/10/r2sP8tBkQbi47XM.png" alt="屏幕截图 2021-10-15 075859"></p>
+<p><img src="https://i.loli.net/2021/11/10/PBvkj87RFrxqGpf.png" alt="屏幕截图 2021-10-06 190904"></p>
 <ul>
 <li>显示从Referer入手，则输入代码：</li>
 </ul>
@@ -484,22 +493,22 @@
 <h2 id="Cookie注入"><a href="#Cookie注入" class="headerlink" title="Cookie注入"></a>Cookie注入</h2><ul>
 <li>sqli_lab 20 源代码：</li>
 </ul>
-<p>![屏幕截图 2021-10-15 090712](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-15 090712.png)</p>
+<p><img src="https://i.loli.net/2021/11/10/nymKLT6rAto3I17.png" alt="屏幕截图 2021-10-15 090712"></p>
 <ul>
 <li>如果输入uname和passwd则setcookie</li>
 </ul>
-<p>![屏幕截图 2021-10-15 090922](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-15 090922.png)</p>
+<p><img src="https://i.loli.net/2021/11/10/Pu13r9cIYnN5EbD.png" alt="屏幕截图 2021-10-15 090922"></p>
 <ul>
 <li><p>如果没有点击submit提交则查询cookie，通过uname传参</p>
 </li>
 <li><p>传入uname和passwd后抓包，这时再删去uname和passwd，在cookie插入<code>uname= 1&#39;and extractvalue(1,concat(0x7e,database()))#</code></p>
 </li>
 </ul>
-<p>![屏幕截图 2021-10-15 091219](C:\Users\dell\Pictures\各种截图\屏幕截图 2021-10-15 091219.png)</p>
+<p><img src="https://i.loli.net/2021/11/10/QT9FsgKNrnMRGcI.png" alt="屏幕截图 2021-10-15 091219"></p>
 <ul>
 <li>sqli_lab 21 源代码：</li>
 </ul>
-<p>![img](C:\Users\dell\Documents\Tencent Files\2080709384\Image\C2C\W35O_77BW@J@4SN$ZM6]59E.png)</p>
+<p><img src="https://i.loli.net/2021/11/10/tgu8WVqijzcrn7F.png" alt="img"></p>
 <ul>
 <li>与20类似，不过将输入的uname值解码后传给cookee，1’) and extractvalue(1,concat(0x7e,database()))#将其编码后赋值给cookee则可以爆库名</li>
 </ul>
